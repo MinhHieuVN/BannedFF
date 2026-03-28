@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OB52 WEB PANEL</title>
+
+<style>
+body{
+background:#0f172a;
+color:white;
+font-family:sans-serif;
+text-align:center;
+}
+
+.box{
+background:#1e293b;
+padding:20px;
+margin:auto;
+width:350px;
+border-radius:10px;
+}
+
+button{
+padding:10px;
+margin:5px;
+width:100%;
+background:#22c55e;
+border:none;
+color:white;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🔥 OB52 PANEL</h1>
+
+<div class="box">
+
+<input id="token" placeholder="Access Token" style="width:100%;padding:10px">
+
+<br><br>
+
+<button onclick="inspect()">Inspect Token</button>
+<button onclick="ban()">BAN ACCOUNT</button>
+
+<pre id="result"></pre>
+
+</div>
+
+<script>
+
+async function inspect(){
+let token=document.getElementById("token").value;
+
+let r=await fetch("/api/inspect",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({token})
+});
+
+document.getElementById("result").innerText=
+JSON.stringify(await r.json(),null,2);
+}
+
+async function ban(){
+let token=document.getElementById("token").value;
+
+let r=await fetch("/api/ban",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({token})
+});
+
+document.getElementById("result").innerText=
+JSON.stringify(await r.json(),null,2);
+}
+
+</script>
+
+</body>
+</html>
